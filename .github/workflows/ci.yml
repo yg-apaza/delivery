@@ -12,16 +12,18 @@ env:
 
 jobs:        
   # Run lints and tests
-  test:
+  lint-test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Build testing environment
+        run: docker-compose -f docker-compose.test.yml build
+
       - name: Run eslint and tests in frontend
-        run: |
-            docker-compose -f docker-compose.test.yml build
-            docker-compose -f docker-compose.test.yml run sut-frontend
+        run: docker-compose -f docker-compose.test.yml run sut-frontend
+        
       - name: Run PEP8 lint and tests
         run: docker-compose -f docker-compose.test.yml run sut-backend
 

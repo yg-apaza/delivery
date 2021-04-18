@@ -5,6 +5,7 @@ services:
     image: delivery
     build:
       target: production
+      context: .
     env_file:
       - .env.prod
     ports:
