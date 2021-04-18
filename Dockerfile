@@ -2,6 +2,7 @@
 FROM node:10 as base-frontend
 WORKDIR /app
 COPY delivery-frontend /app/
+RUN npm install
 RUN npm run build
 
 # Django
