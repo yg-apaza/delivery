@@ -6,10 +6,8 @@ RUN npm run build
 
 # Django
 FROM python:3.8.5-slim as base-backend
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 ENV STATIC_DIR=/opt/app/delivery_frontend
-RUN mkdir -p /opt/app/delivery_backend && mkdir -p ${STATIC_DIR}
+RUN mkdir -p /opt/app/delivery_backend && mkdir -p $STATIC_DIR
 WORKDIR ${STATIC_DIR}
 COPY --from=base-frontend /app/build ./
 WORKDIR /opt/app/delivery_backend

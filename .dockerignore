@@ -26,3 +26,9 @@ web/static/CACHE
 stats
 **/venv
 Dockerfile
+node_modules
+package.json
+package-lock.json
+commitlint.config.json
+README.md
+*.yml
