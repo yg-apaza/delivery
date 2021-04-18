@@ -21,7 +21,7 @@ jobs:
       - name: Build testing environment
         run: docker-compose -f docker-compose.test.yml build
 
-      - name: Run eslint and tests in frontend
+      - name: Run ESLint and tests in frontend
         run: docker-compose -f docker-compose.test.yml run sut-frontend
         
       - name: Run PEP8 lint and tests
@@ -30,7 +30,7 @@ jobs:
   # Push image to GitHub Packages.
   push:
     # Ensure test job passes before pushing image.
-    needs: test
+    needs: lint-test
 
     runs-on: ubuntu-latest
 
