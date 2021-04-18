@@ -2,6 +2,8 @@
 FROM node:10 as base-frontend
 WORKDIR /app
 COPY delivery-frontend /app/
+RUN npm install -g typescript
+RUN npm link typescript
 RUN npm install
 RUN npm run build
 
@@ -25,7 +27,6 @@ COPY nginx.default /etc/nginx/sites-available/default
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 # Run gunicorn
-RUN pip install gunicorn
 COPY start-server.sh /opt/app/
 RUN chown -R www-data:www-data ${STATIC_DIR}
 # Start server
