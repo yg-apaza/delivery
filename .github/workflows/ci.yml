@@ -11,7 +11,8 @@ env:
   IMAGE_NAME: delivery
 
 jobs:
-  # Run tests.  test:
+  # Run tests.
+  test:
     runs-on: ubuntu-latest
 
     steps:
