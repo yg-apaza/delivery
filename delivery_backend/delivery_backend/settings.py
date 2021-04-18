@@ -111,6 +111,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
+    # Serve static files from the build of frontend folder, development only
     '/var/www/html/'
 ]
 
