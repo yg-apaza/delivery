@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      target: base-backend
+    ports:
+      - 8000:8000
+    command: python /opt/app/delivery_backend/manage.py runserver 0.0.0.0:8000
