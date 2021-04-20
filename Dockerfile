@@ -9,6 +9,11 @@ RUN npm run build
 
 # Django
 FROM python:3.8.5-slim as base-backend
+# Install PostgreSQL libraries
+RUN apt-get update && apt-get install wget gnupg2 -y --no-install-recommends
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list
+RUN apt-get update && apt-get install postgresql-server-dev-12 gcc python3-dev -y --no-install-recommends
 ENV STATIC_DIR=/opt/app/delivery_frontend
 RUN mkdir -p /opt/app/delivery_backend && mkdir -p $STATIC_DIR
 WORKDIR ${STATIC_DIR}
@@ -22,7 +27,7 @@ RUN pip install -r requirements.txt
 
 FROM base-backend as production
 ## Heroku workaround to connect via ssh
-RUN apt-get update && apt-get install openssh-server openssh-client curl iproute2 -y --no-install-recommends
+RUN apt-get install openssh-server openssh-client curl iproute2 -y --no-install-recommends
 ADD ./.profile.d /app/.profile.d
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ## Install and config nginx
