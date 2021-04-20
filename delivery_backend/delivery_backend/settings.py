@@ -3,6 +3,7 @@ from environs import Env
 import os
 import logging.config
 import logging
+import dj_database_url
 
 logger = logging.getLogger(__name__)
 
@@ -66,14 +67,7 @@ WSGI_APPLICATION = 'delivery_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'database-name',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=env('DATABASE_URL', 'postgres://postgres:postgres@db:5432/delivery_db'))
 }
 
 

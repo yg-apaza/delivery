@@ -7,4 +7,24 @@ services:
       context: .
     ports:
       - 8000:8000
-    command: python /opt/app/delivery_backend/manage.py runserver 0.0.0.0:8000
+    command: bash -c "python /opt/app/delivery_backend/manage.py migrate && python /opt/app/delivery_backend/manage.py runserver 0.0.0.0:8000"
+    networks:
+      api:
+    depends_on:
+      - db
+  db:
+    image: postgres:12.6
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=delivery_db
+    ports:
+      - 5431:5432
+    volumes: 
+      - pgdata:/var/lib/postgresql/pgdata
+    networks:
+      api:
+volumes:
+  pgdata:
+networks:
+  api:
