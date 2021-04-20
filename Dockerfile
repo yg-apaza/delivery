@@ -21,15 +21,18 @@ RUN pip install -r requirements.txt
 # Production stages
 
 FROM base-backend as production
+## Heroku workaround to connect via ssh
+RUN apt-get update && apt-get install openssh-server openssh-client curl iproute2 -y --no-install-recommends
+ADD ./.profile.d /app/.profile.d
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ## Install and config nginx
-RUN apt-get update && apt-get install nginx -y --no-install-recommends
+RUN apt-get install nginx -y --no-install-recommends
 COPY nginx.default /etc/nginx/sites-available/default
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 # Run gunicorn
 COPY start-server.sh /opt/app/
-RUN chown -R www-data:www-data ${STATIC_DIR}
-# Start server
+## Start server
 ENV PORT=80
 EXPOSE $PORT
 STOPSIGNAL SIGTERM

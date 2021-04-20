@@ -18,6 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Commit Linter
+        uses: wagoid/commitlint-github-action@v2.0.3
+
       - name: Build testing environment
         run: docker-compose -f docker-compose.test.yml build
 
@@ -26,44 +29,15 @@ jobs:
         
       - name: Run PEP8 lint and tests
         run: docker-compose -f docker-compose.test.yml run sut-backend
-
-  # Push image to GitHub Packages.
-  push:
-    # Ensure test job passes before pushing image.
-    needs: lint-test
-
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Update env file with secrets
-        run: sed -i -e 's/\(ALLOWED_HOSTS\)=.*/\1=${{ secrets.ALLOWED_HOSTS }}/g' -e 's/\(SECRET_KEY\)=.*/\1=${{ secrets.SECRET_KEY }}/g' .env.prod
-
-      - name: Build image
-        run: docker-compose -f docker-compose.prod.yml build
-
-      - name: Log into registry
-        run: echo "${{ secrets.HEROKU_AUTH_TOKEN }}" | docker login registry.heroku.com -u ${{ secrets.HEROKU_USER }} --password-stdin
-
-      - name: Push image
-        run: |
-          IMAGE_ID=registry.heroku.com/$IMAGE_NAME:web
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Deploy to Heroku
+        id: heroku
+        uses: Techmmunity/docker-heroku-deploy@v1.0.0
+        with:
+          email: ${{ secrets.HEROKU_USER }}
+          api_key: ${{ secrets.HEROKU_AUTH_TOKEN }}
+          app_name: ${{ secrets.HEROKU_APP_NAME }}
