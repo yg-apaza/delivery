@@ -17,7 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 0
+        
       - name: Commit Linter
         uses: wagoid/commitlint-github-action@v2.0.3
 
