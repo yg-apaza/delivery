@@ -1,4 +1,4 @@
-name: Docker
+name: CI CD pipeline
 
 on:
   push:
@@ -31,15 +31,19 @@ jobs:
         
       - name: Run PEP8 lint and tests
         run: docker-compose -f docker-compose.test.yml run sut-backend
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    needs: lint-test
+    if: github.ref == 'refs/heads/master'
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build, Push and Deploy to Heroku
         id: heroku
-        uses: Techmmunity/docker-heroku-deploy@v1.0.0
+        uses: jctaveras/heroku-deploy@v2.1.3
         with:
           email: ${{ secrets.HEROKU_USER }}
           api_key: ${{ secrets.HEROKU_AUTH_TOKEN }}
           app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_path: ''
