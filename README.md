@@ -63,7 +63,7 @@ Open [localhost:8000/app/index.html](localhost:8000/app/index.html). The app wil
 
 ## Roadmap
 
-Report and issue and propose new features [here]](https://github.com/yg-apaza/delivery/issues).
+Report and issue and propose new features [here](https://github.com/yg-apaza/delivery/issues).
 
 ## License
 

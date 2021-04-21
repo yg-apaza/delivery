@@ -5,11 +5,9 @@ services:
     build:
       context: .
       target: base-frontend
-    command: bash -c "npm run lint && npm run test"
-    environment:
-      - CI=true
+    command: bash -c "npm run lint"
   sut-backend:
     build:
       context: .
       target: base-backend
-    command: bash -c "flake8 --config=.flake8 .&& python /opt/app/delivery_backend/manage.py test"
+    command: bash -c "flake8 --config=.flake8 && python /opt/app/delivery_backend/manage.py test"
