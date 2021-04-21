@@ -2,7 +2,7 @@ function httpAsync(url, method, data, callback)
 {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() { 
-        callback(xhr.responseText);
+        callback(xhr);
     }
     xhr.open(method, url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -23,17 +23,3 @@ function showResults(str) {
     var div = document.getElementById('results');
     div.innerHTML = str;
 }
-
-
-
-/*
-httpAsync("../api/queries/", "GET", null, function(response) {
-    console.log(response)
-})
-
-httpAsync("../api/queries/distance/", "POST", {
-    location_from: "Salta",
-    location_to: "Egipto"
-}, function(response) {
-    console.log(response)
-})*/

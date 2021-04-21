@@ -9,7 +9,11 @@ function processForm(e) {
             location_from: from,
             location_to: to
         }, function(response) {
-            showResultsFromApi(response)
+            if(response.status >= 200 && response.status < 300)
+                showResultsFromApi(response.responseText)
+            else
+                showResults("Server error with status " + response.status
+                            + '. Response was: ' + response.responseText)
         })
     } else {
         showResults("Empty values for addresses")
