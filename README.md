@@ -1,10 +1,19 @@
 # Delivery App built from zero to hero
 
-> A simple app to calculate distance between two points built with Django, PostgreSQL and JavaScript
-
 ![main build](https://github.com/yg-apaza/delivery/actions/workflows/ci.yml/badge.svg)
 
-Check it out here: [delivery-spike](https://delivery-spike.herokuapp.com/app/index.html)
+> A simple app to calculate distance between two points built with Django, PostgreSQL and JavaScript
+
+Check it out in this link: [https://delivery-spike.herokuapp.com/app/index.html](https://delivery-spike.herokuapp.com/app/index.html)
+
+Spike Challenge answers here: [Answers](SPIKECHALLENGE.md)
+
+
+![screenshot](screenshot.png)
+
+Accurate results !
+
+![google-maps](google-maps.png)
 
 Delivery App is a sample app to showcase the following features:
 
