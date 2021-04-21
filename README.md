@@ -1,6 +1,6 @@
 # Delivery App built from zero to hero
 
-> A simple app to calculate distance between two points built with Django, PostgreSQL and Angular
+> A simple app to calculate distance between two points built with Django, PostgreSQL and JavaScript
 
 ![main build](https://github.com/yg-apaza/delivery/actions/workflows/ci.yml/badge.svg)
 
@@ -9,7 +9,7 @@ Check it out here: [delivery-spike](https://delivery-spike.herokuapp.com/app/ind
 Delivery App is a sample app to showcase the following features:
 
 - API: A simple API built with Django
-- Frontend: Simple frontend app built with Angular
+- Frontend: Simple frontend app built with HTML / CSS / JavaScript
 - Production-ready app: Configured to be deployed on an NGINX server using gunicorn. NGINX server serves as a proxy to redirect between the API and the frontend app.
 - CI/CD pipeline: Automatize the unit tests, linters (for commits and code to follow the common standards) and deployment to Heroku Container Registry via Docker using Github Actions.
 - Setup of test, development and production environments using docker-compose.
@@ -17,7 +17,7 @@ Delivery App is a sample app to showcase the following features:
 ## Technologies used
 
 - Django
-- Angular
+- HTML / CSS / JavaScript
 - PostgreSQL
 - nginx
 - gunicorn

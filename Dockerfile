@@ -1,25 +1,16 @@
-# Building the React app
-FROM node:10 as base-frontend
-WORKDIR /app
-COPY delivery-frontend /app/
-RUN npm install -g typescript
-RUN npm link typescript
-RUN npm install
-RUN npm run build-prod
-
-# Django
 FROM python:3.8.5-slim as base-backend
 # Install PostgreSQL libraries
 RUN apt-get update && apt-get install wget gnupg2 -y --no-install-recommends
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update && apt-get install postgresql-server-dev-12 gcc python3-dev -y --no-install-recommends
+# Copying backend and frontend
 ENV STATIC_DIR=/opt/app/delivery_frontend
 RUN mkdir -p /opt/app/delivery_backend && mkdir -p $STATIC_DIR
-WORKDIR ${STATIC_DIR}
-COPY --from=base-frontend /app/dist/delivery-frontend ./
+COPY delivery_frontend/ /opt/app/delivery_frontend/
 WORKDIR /opt/app/delivery_backend
-COPY delivery_backend ./
+COPY delivery_backend/ ./
+#Installing requirements for backend
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
