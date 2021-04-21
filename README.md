@@ -1,39 +1,85 @@
-# Spike Challenge
+# Delivery App built from zero to hero
 
-## Pregunta 1
+![main build](https://github.com/yg-apaza/delivery/actions/workflows/ci.yml/badge.svg)
 
-Para crear el MVP se necesitan los siguientes artefactos:
+> A simple app to calculate distance between two points built with Django, PostgreSQL and JavaScript
 
-- Aplicación movil
-- API y API Gateway
-- Aplicación web
-- Proceso CI/CD
-- Proceso de recoleccion de analytics
+![screenshot](screenshot.png)
 
-En un inicio sería una API monolitica y escalable, tendriamos una web simple para la construcción del branding o marca. Es necesario que la aplicación para los usuarios finales sean en dispositivos móviles. Además al ser un prototipo es necesario tener métricas que nos indiquen que problemas o mejoras se han detectado relacionado con las actividades de los usuarios, para esta parte necesitaria de la ayuda de un Data Scientist.
+Accurate results !
 
-## Pregunta 2
+![google-maps](google-maps.png)
 
-Al ser un MVP y que debe ser diseñado de forma rápida y eficiente, consideraría utilizar una arquitectura monolítica que en un inicio esté delimitada en contextos para en un futuro poder llevarlo a microservicios. Mis razones son las siguientes:
+Check it out here: [delivery-spike](https://delivery-spike.herokuapp.com/app/index.html)
 
-- Crear una arquitectura de microservicios para un MVP no genera impacto en el negocio a menos que sepamos que desde el primer día tendremos grandes cantidades de usuarios.
+Delivery App is a sample app to showcase the following features:
 
-- Crear una arquitectura de microservicios es complejo, un MVP debe ser desarrollado de forma rápida porque no sabemos si el producto finalmente será aceptado. Cada microservicio requeriría su propia pipeline CI/CD, su propio mantenimiento y sus propias pruebas, generando complejidad innecesaria al inicio.
+- API: A simple API built with Django
+- Frontend: Simple frontend app built with HTML / CSS / JavaScript
+- Production-ready app: Configured to be deployed on an NGINX server using gunicorn. NGINX server serves as a proxy to redirect between the API and the frontend app.
+- CI/CD pipeline: Automatize the unit tests, linters (for commits and code to follow the common standards) and deployment to Heroku Container Registry via Docker using Github Actions.
+- Setup of test, development and production environments using docker-compose.
 
-- Un microservicio debe estar bien definido y delimitado, debe cumplir con el principio de Responsabilidad Unica. Crear microservicios desde el inicio es riesgoso. Al desconocer la magnitud de los posibles contextos o dominios de nuestra aplicación podriamos crear microservicios que en un futuro pueden volverse muy complejos y abarcar demasiados contextos.
+## Technologies used
 
-## Pregunta 3
+- Django
+- HTML / CSS / JavaScript
+- PostgreSQL
+- nginx
+- gunicorn
+- NPM
+- Docker and Docker Compose
+- Github Actions
+- Heroku CLI
 
-En mi experiencia me ha funcionado el SCRUM. Podriamos iniciar con la creacion de historias de usuario y rapidamente definir requerimientos. Considero que los sprints son relevantes para llevar a cabo el desarrollo de este MVP ya que se necesita tener siempre un producto funcional en cada iteración.
+## Installation
 
-## Pregunta 4
+### Development environment
 
-Considero que deberiamos seguir el proceso de [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). Tendriamos una rama master para aplicaciones listas para produccion. Una rama de desarrollo donde estaría integrado un pipeline CI/CD para desarrollar y deployar continuamente. Además contariamos con multiples ramas feature para cada requerimiento que se quiera construir en la aplicación.
+Run the following command to launch the development environment with Docker:
 
-Cada commit a la rama feature se debe validar con test unitarios, los commits a la rama develop deben de deployarse en un entorno de desarrollo continuo.
+```
+docker-compose -f docker-compose.dev.yml build
+docker-compose -f docker-compose.dev.yml up
+```
 
-Además para mejores prácticas deberiamos seguir lineamientos para los commits usando [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Open [localhost:8000/app/index.html](localhost:8000/app/index.html). The app will show debug information if something goes wrong.
 
-## Pregunta 5
+### Testing environment
 
-Los roles propuestos son suficientes para el desarrollo del prototipo. Sin embargo consideraría agregar algunos Ing. de Software que puedan *llevar varios sombreros* para desarrollar más rápido el primer prototipo. Posteriormente podríamos crear roles especializados necesarios en todo equipo de desarrollo: ingenieros QA, ingenieros DevOps, UX Designers, frontend Developers, mobile Developers, backend developers. Después se podría hacer los analytics con Ing. de Machine Learning o Data Scientist para incorporar features inteligentes a la aplicación. Además se requeriría de un Product Manager para dirigir el futuro del producto.
+Run the following command to launch the testing environment with Docker:
+
+```
+docker-compose -f docker-compose.test.yml build
+docker-compose -f docker-compose.test.yml up
+```
+
+First the app will run the linters ESLint and Flake8 to check the format of the code. Then the app will run the unit test for the frontend and the backend. The results will match the CI/CD pipeline on Github Actions, so the debugging will be more easier.
+
+### Production environment
+
+Run the following command to launch the production environment with Docker:
+
+```
+docker-compose -f docker-compose.prod.yml build
+docker-compose -f docker-compose.prod.yml up
+```
+
+Open [localhost:8000/app/index.html](localhost:8000/app/index.html). The app will NOT show debug information if something goes wrong. The app is using NGINX and gunicorn as a reverse-proxy to serve static files and the API from Django.
+
+## Roadmap
+
+Report and issue and propose new features [here](https://github.com/yg-apaza/delivery/issues).
+
+## License
+
+Distributed under the MIT License. See ```LICENSE``` for more information.
+
+## Acknowledgments
+
+- [Dockerizing a Python Django Web Application](https://semaphoreci.com/community/tutorials/dockerizing-a-python-django-web-application)
+- [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+- [Django with Nginx, Gunicorn. A Production Ready Solution](https://medium.com/analytics-vidhya/dajngo-with-nginx-gunicorn-aaf8431dc9e0)
+- [Deploying containerized NginX to Heroku - how hard can it be?](https://dev.to/levelupkoodarit/deploying-containerized-nginx-to-heroku-how-hard-can-it-be-3g14)
+- [How to find the distance between two lat-long coordinates in Python
+](https://www.kite.com/python/answers/how-to-find-the-distance-between-two-lat-long-coordinates-in-python)
