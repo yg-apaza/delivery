@@ -20,6 +20,8 @@ DEBUG = env.bool('DEBUG', True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', '0.0.0.0', 'localhost'])
 
+APPEND_SLASH = False
+
 
 # Application definition
 
@@ -30,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'delivery_backend.apps.delivery.apps.DeliveryConfig'
 ]
 
 MIDDLEWARE = [
@@ -109,7 +113,7 @@ USE_TZ = True
 STATIC_URL = '/app/'
 STATICFILES_DIRS = [
     # Serve static files from the build of frontend folder, development only
-    env.str('STATIC_DIR', os.path.join(BASE_DIR, '../delivery-frontend/build'))
+    env.str('STATIC_DIR', os.path.join(BASE_DIR, '../delivery-frontend/dist/delivery-frontend'))
 ]
 
 # Default primary key field type
@@ -121,7 +125,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGGING_CONFIG = None
 
-LOGLEVEL = env.str('DJANGO_LOGLEVEL', 'debug').upper()
+LOGLEVEL = env.str('DJANGO_LOGLEVEL', 'info').upper()
 
 logging.config.dictConfig({
     'version': 1,
