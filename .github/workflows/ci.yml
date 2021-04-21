@@ -5,9 +5,6 @@ on:
     branches:
       - '**'
 
-env:
-  IMAGE_NAME: delivery
-
 jobs:        
   # Run lints and tests
   lint-test:
@@ -23,12 +20,9 @@ jobs:
 
       - name: Build testing environment
         run: docker-compose -f docker-compose.test.yml build
-
-      - name: Run ESLint and tests in frontend
-        run: docker-compose -f docker-compose.test.yml run sut-frontend
         
       - name: Run PEP8 lint and tests
-        run: docker-compose -f docker-compose.test.yml run sut-backend
+        run: docker-compose -f docker-compose.test.yml run sut
   deploy:
     runs-on: ubuntu-latest
     needs: lint-test

@@ -1,12 +1,7 @@
 version: '3.7'
 
 services:
-  sut-frontend:
-    build:
-      context: .
-      target: base-frontend
-    command: bash -c "npm run lint"
-  sut-backend:
+  sut:
     build:
       context: .
       target: base-backend
