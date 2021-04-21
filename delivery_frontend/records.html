@@ -13,7 +13,11 @@
         </div>
         <script>
             httpAsync("../api/queries/", "GET", null, function(response) {
-                showResultsFromApi(response)
+                if(response.status >= 200 && response.status < 300)
+                    showResultsFromApi(response.responseText)
+                else
+                    showResults("Server error with status " + response.status
+                                + '. Response was: ' + response.responseText)
             })
         </script>
     </body>

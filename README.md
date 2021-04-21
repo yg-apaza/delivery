@@ -75,3 +75,5 @@ Distributed under the MIT License. See ```LICENSE``` for more information.
 - [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
 - [Django with Nginx, Gunicorn. A Production Ready Solution](https://medium.com/analytics-vidhya/dajngo-with-nginx-gunicorn-aaf8431dc9e0)
 - [Deploying containerized NginX to Heroku - how hard can it be?](https://dev.to/levelupkoodarit/deploying-containerized-nginx-to-heroku-how-hard-can-it-be-3g14)
+- [How to find the distance between two lat-long coordinates in Python
+](https://www.kite.com/python/answers/how-to-find-the-distance-between-two-lat-long-coordinates-in-python)
