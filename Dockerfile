@@ -11,7 +11,6 @@ COPY delivery_frontend/ /opt/app/delivery_frontend/
 WORKDIR /opt/app/delivery_backend
 COPY delivery_backend/ ./
 #Installing requirements for backend
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Production stages

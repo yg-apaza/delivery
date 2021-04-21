@@ -1,14 +1,26 @@
-function httpGetAsync(url, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+function processForm(e) {
+    if (e.preventDefault) e.preventDefault();
+    let from = document.getElementById("from_input").value;
+    let to = document.getElementById("to_input").value;
+    console.log(from);
+    console.log(to);
+    if(isNotEmpty(from) && isNotEmpty(to)) {
+        httpAsync("../api/queries/distance/", "POST", {
+            location_from: from,
+            location_to: to
+        }, function(response) {
+            showResultsFromApi(response)
+        })
+    } else {
+        showResults("Empty values for addresses")
     }
-    xmlHttp.open("GET", url, true);
-    xmlHttp.send(null);
+
+    return false;
 }
 
-httpGetAsync("../api/queries/", function(response) {
-    console.log(response)
-})
+var form = document.getElementById('calculate-distance-form');
+if (form.attachEvent) {
+    form.attachEvent("submit", processForm);
+} else {
+    form.addEventListener("submit", processForm);
+}
