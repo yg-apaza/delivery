@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from geopy.exc import GeocoderTimedOut
 from rest_framework.decorators import action
 
 from delivery_backend.apps.delivery.models import QueryResponse
@@ -19,10 +21,12 @@ class QueryResponseViewSet(viewsets.mixins.ListModelMixin,
         serializer = QueryRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         location_from = request.data.get('location_from')
-        location_to = request.data.get('location_from')
-
-        approximate_location_from = self.geoLocator.geocode(location_from).address
-        approximate_location_to = self.geoLocator.geocode(location_to).address
+        location_to = request.data.get('location_to')
+        try:
+            approximate_location_from = self.geoLocator.geocode(location_from).address
+            approximate_location_to = self.geoLocator.geocode(location_to).address
+        except GeocoderTimedOut as e:
+            return JsonResponse({'message': e.message}, status=status.HTTP_504_GATEWAY_TIMEOUT)
         query_response = QueryResponse(location_from=approximate_location_from,
                                        location_to=approximate_location_to,
                                        distance=1)

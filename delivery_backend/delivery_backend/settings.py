@@ -117,7 +117,7 @@ USE_TZ = True
 STATIC_URL = '/app/'
 STATICFILES_DIRS = [
     # Serve static files from the build of frontend folder, development only
-    env.str('STATIC_DIR', os.path.join(BASE_DIR, '../delivery-frontend/dist/delivery-frontend'))
+    env.str('STATIC_DIR', os.path.join(BASE_DIR, '../delivery_frontend/'))
 ]
 
 # Default primary key field type
